@@ -28,7 +28,7 @@ class ConfigRegister
                     AlistEnum::CHANNEL_AUTH => [
                         'verify'          => false,
                         'ssl'             => true,
-                        'host'            => 'alist.exewen.cn',
+                        'host'            => 'alist.test.com',
                         'port'            => null,
                         'prefix'          => null,
                         'connect_timeout' => 3,
@@ -46,7 +46,7 @@ class ConfigRegister
                     AlistEnum::CHANNEL_API  => [
                         'verify'          => false,
                         'ssl'             => true,
-                        'host'            => 'alist.exewen.cn',
+                        'host'            => 'alist.test.com',
                         'port'            => null,
                         'prefix'          => null,
                         'connect_timeout' => 3,
