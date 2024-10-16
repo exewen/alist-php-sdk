@@ -56,7 +56,7 @@ class Alist implements AlistInterface
         if (!isset($result['data']['token'])) {
             throw new AlistException("获取token异常($response)");
         }
-        return $result;
+        return $result['data']['token'];
     }
 
     /**
@@ -78,7 +78,11 @@ class Alist implements AlistInterface
             'refresh'  => $refresh,
         ];
         $response = $this->queryService->getFs($params);
-        return json_decode($response, true);
+        $result   = json_decode($response, true);
+        if (!isset($result['code']) || $result['code'] !== 200) {
+            throw new AlistException(__FUNCTION__ . "异常：($response)");
+        }
+        return $result['data'];
     }
 
     /**
@@ -100,7 +104,11 @@ class Alist implements AlistInterface
             'refresh'  => $refresh,
         ];
         $response = $this->queryService->getFsGet($params);
-        return json_decode($response, true);
+        $result   = json_decode($response, true);
+        if (!isset($result['code']) || $result['code'] !== 200) {
+            throw new AlistException(__FUNCTION__ . "异常：($response)");
+        }
+        return $result['data'];
     }
 
     /**
@@ -117,7 +125,11 @@ class Alist implements AlistInterface
             'force_root' => false,
         ];
         $response = $this->queryService->getFsDirs($params);
-        return json_decode($response, true);
+        $result   = json_decode($response, true);
+        if (!isset($result['code']) || $result['code'] !== 200) {
+            throw new AlistException(__FUNCTION__ . "异常：($response)");
+        }
+        return $result['data'];
     }
 
 
@@ -134,7 +146,11 @@ class Alist implements AlistInterface
             throw new AlistException("文件不存在：$filePath");
         }
         $response = $this->operationalService->fileUpload($filePath, $alistFolder, $type);
-        return json_decode($response, true);
+        $result   = json_decode($response, true);
+        if (!isset($result['code']) || $result['code'] !== 200) {
+            throw new AlistException(__FUNCTION__ . "异常：($response)");
+        }
+        return true;
     }
 
     /**
@@ -150,7 +166,11 @@ class Alist implements AlistInterface
             'names' => $removeFiles,
         ];
         $response = $this->operationalService->delete($params);
-        return json_decode($response, true);
+        $result   = json_decode($response, true);
+        if (!isset($result['code']) || $result['code'] !== 200) {
+            throw new AlistException(__FUNCTION__ . "异常：($response)");
+        }
+        return true;
     }
 
     /**
@@ -164,7 +184,11 @@ class Alist implements AlistInterface
             'path' => $path,
         ];
         $response = $this->operationalService->mkdir($params);
-        return json_decode($response, true);
+        $result   = json_decode($response, true);
+        if (!isset($result['code']) || $result['code'] !== 200) {
+            throw new AlistException(__FUNCTION__ . "异常：($response)");
+        }
+        return true;
     }
 
     /**
@@ -180,7 +204,11 @@ class Alist implements AlistInterface
             'name' => $name,
         ];
         $response = $this->operationalService->rename($params);
-        return json_decode($response, true);
+        $result   = json_decode($response, true);
+        if (!isset($result['code']) || $result['code'] !== 200) {
+            throw new AlistException(__FUNCTION__ . "异常：($response)");
+        }
+        return true;
     }
 
     /**
@@ -196,7 +224,11 @@ class Alist implements AlistInterface
             'rename_objects' => $renameObjects,
         ];
         $response = $this->operationalService->batchRename($params);
-        return json_decode($response, true);
+        $result   = json_decode($response, true);
+        if (!isset($result['code']) || $result['code'] !== 200) {
+            throw new AlistException(__FUNCTION__ . "异常：($response)");
+        }
+        return true;
     }
 
     /**
@@ -214,7 +246,11 @@ class Alist implements AlistInterface
             'names'   => $moveFiles,
         ];
         $response = $this->operationalService->move($params);
-        return json_decode($response, true);
+        $result   = json_decode($response, true);
+        if (!isset($result['code']) || $result['code'] !== 200) {
+            throw new AlistException(__FUNCTION__ . "异常：($response)");
+        }
+        return true;
     }
 
     /**
@@ -230,7 +266,11 @@ class Alist implements AlistInterface
             'dst_dir' => $newFolder,
         ];
         $response = $this->operationalService->recursiveMove($params);
-        return json_decode($response, true);
+        $result   = json_decode($response, true);
+        if (!isset($result['code']) || $result['code'] !== 200) {
+            throw new AlistException(__FUNCTION__ . "异常：($response)");
+        }
+        return true;
     }
 
     /**
@@ -244,7 +284,11 @@ class Alist implements AlistInterface
             'src_dir' => $alistFolder
         ];
         $response = $this->operationalService->removeEmptyDirectory($params);
-        return json_decode($response, true);
+        $result   = json_decode($response, true);
+        if (!isset($result['code']) || $result['code'] !== 200) {
+            throw new AlistException(__FUNCTION__ . "异常：($response)");
+        }
+        return true;
     }
 
 
@@ -263,7 +307,11 @@ class Alist implements AlistInterface
             'delete_policy' => 'delete_on_upload_succeed',
         ];
         $response = $this->downloadService->downloadFile($params);
-        return json_decode($response, true);
+        $result   = json_decode($response, true);
+        if (!isset($result['code']) || $result['code'] !== 200) {
+            throw new AlistException(__FUNCTION__ . "异常：($response)");
+        }
+        return $result['data'];
     }
 
     /**
@@ -281,7 +329,11 @@ class Alist implements AlistInterface
             'delete_policy' => 'delete_on_upload_succeed',
         ];
         $response = $this->downloadService->downloadFile($params);
-        return json_decode($response, true);
+        $result   = json_decode($response, true);
+        if (!isset($result['code']) || $result['code'] !== 200) {
+            throw new AlistException(__FUNCTION__ . "异常：($response)");
+        }
+        return $result['data'];
     }
 
 

@@ -22,37 +22,42 @@ class OperationalTest extends Base
         AlistFacade::mkdir($this->testAlistPath . '/测试/上传');
         AlistFacade::mkdir($this->testAlistPath . '/测试/移动');
         AlistFacade::mkdir($this->testAlistPath . '/测试/删除');
-        $response = AlistFacade::mkdir($this->testAlistPath . '/测试/空');
-        echo __FUNCTION__ . ' ' . $response['message'] . PHP_EOL;
-        $this->assertNotEmpty($response);
+        $result = AlistFacade::mkdir($this->testAlistPath . '/测试/空');
+        $this->assertTrue($result);
     }
 
     public function testUpload()
     {
         AlistFacade::upload($this->testFile, $this->testAlistPath . '/测试/上传');
-        $response = AlistFacade::upload($this->testFile, $this->testAlistPath . '/测试/删除');
-        echo __FUNCTION__ . ' ' . $response['message'] . PHP_EOL;
-        $this->assertNotEmpty($response);
+        $result = AlistFacade::upload($this->testFile, $this->testAlistPath . '/测试/删除');
+        $this->assertTrue($result);
     }
+
 
     public function testDelete()
     {
         $removeFile = ['安全图片.jpg'];
-        $response   = AlistFacade::delete($this->testAlistPath . '/测试/删除', $removeFile);
-        echo __FUNCTION__ . ' ' . $response['message'] . PHP_EOL;
-        $this->assertNotEmpty($response);
+        $result     = AlistFacade::delete($this->testAlistPath . '/测试/删除', $removeFile);
+        $this->assertTrue($result);
     }
 
-
+    /**
+     * 重命名
+     * @return void
+     */
     public function testRename()
     {
-        $oldName  = '安全图片.jpg';
-        $newName  = '安全图片2.jpg';
-        $response = AlistFacade::rename($this->testAlistPath . '/测试/上传/' . $oldName, $newName);
-        echo __FUNCTION__ . ' ' . $response['message'] . PHP_EOL;
-        $this->assertNotEmpty($response);
+        $oldName = '安全图片.jpg';
+        $newName = '安全图片2.jpg';
+        $result  = AlistFacade::rename($this->testAlistPath . '/测试/上传/' . $oldName, $newName);
+        sleep(1);
+        $this->assertTrue($result);
     }
 
+    /**
+     * 批量重命名
+     * @return void
+     */
     public function testBatchRename()
     {
         $renameObjects = [
@@ -61,39 +66,48 @@ class OperationalTest extends Base
                 'new_name' => '安全图片3.jpg',
             ]
         ];
-        $response      = AlistFacade::batchRename($this->testAlistPath . '/测试/上传/', $renameObjects);
-        echo __FUNCTION__ . ' ' . $response['message'] . PHP_EOL;
-        $this->assertNotEmpty($response);
+        $result        = AlistFacade::batchRename($this->testAlistPath . '/测试/上传/', $renameObjects);
+        sleep(1);
+        $this->assertTrue($result);
     }
 
+    /**
+     * 移动
+     * @return void
+     */
     public function testMove()
     {
         $oldFolder = $this->testAlistPath . '/测试/上传/';
         $newFolder = $this->testAlistPath . '/测试/删除/';
         $moveFiles = ['安全图片3.jpg'];
-        $response  = AlistFacade::move($oldFolder, $newFolder, $moveFiles);
-        echo __FUNCTION__ . ' ' . $response['message'] . PHP_EOL;
-        $this->assertNotEmpty($response);
+        $result    = AlistFacade::move($oldFolder, $newFolder, $moveFiles);
+        sleep(1);
+        $this->assertTrue($result);
+
     }
 
+    /**
+     * 聚合移动
+     * @return void
+     */
     public function testRecursiveMove()
     {
         $oldFolder = $this->testAlistPath . '/测试/删除/';
         $newFolder = $this->testAlistPath . '/测试/移动/';
-        $response  = AlistFacade::recursiveMove($oldFolder, $newFolder);
-        echo __FUNCTION__ . ' ' . $response['message'] . PHP_EOL;
-        $this->assertNotEmpty($response);
+        $result    = AlistFacade::recursiveMove($oldFolder, $newFolder);
+        sleep(1);
+        $this->assertTrue($result);
     }
 
     /**
-     * 剩下 移动  图片3
+     * 清理空文件夹
+     * 测完成 剩余  (移动->图片3)
      * @return void
      */
     public function testRemoveEmptyDirectory()
     {
-        $response = AlistFacade::removeEmptyDirectory($this->testAlistPath . '/测试');
-        echo __FUNCTION__ . ' ' . $response['message'] . PHP_EOL;
-        $this->assertNotEmpty($response);
+        $result = AlistFacade::removeEmptyDirectory($this->testAlistPath . '/测试');
+        $this->assertTrue($result);
     }
 
 

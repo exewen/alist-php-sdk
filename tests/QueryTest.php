@@ -19,23 +19,20 @@ class QueryTest extends Base
 
     public function testGetList()
     {
-        $response = AlistFacade::getList($this->testAlistPath);
-        echo __FUNCTION__ . ' ' . $response['message'] . PHP_EOL;
-        $this->assertNotEmpty($response);
+        $result = AlistFacade::getList($this->testAlistPath);
+        $this->assertNotEmpty($result);
     }
 
     public function testGetListDetail()
     {
-        $response = AlistFacade::getListDetail($this->testAlistPath);
-        echo __FUNCTION__ . ' ' . $response['message'] . PHP_EOL;
-        $this->assertNotEmpty($response);
+        $result = AlistFacade::getListDetail($this->testAlistPath);
+        $this->assertNotEmpty($result);
     }
 
     public function testGetListDirs()
     {
-        $response = AlistFacade::getListDirs($this->testAlistPath);
-        echo __FUNCTION__ . ' ' . $response['message'] . PHP_EOL;
-        $this->assertNotEmpty($response);
+        $result = AlistFacade::getListDirs($this->testAlistPath);
+        $this->assertNotEmpty($result);
     }
 
 
