@@ -11,7 +11,7 @@ use Exewen\Alist\Contract\AlistInterface;
 
 /**
  * @method static void setAccessToken(string $accessToken) 设置token
- * @method static array getToken(string $username, string $password) 获取token
+ * @method static string getToken(string $username, string $password) 获取token
  * @method static array getList(string $path, int $page = 1, int $limit = 20, bool $refresh = false, string $password = '') 列出目录和文件
  * @method static array getListDirs(string $path, string $password = '') 只列出目录
  * @method static array getListDetail(string $path, int $page = 1, int $limit = 20, bool $refresh = false, string $password = '') 获取某个目录和文件信息
