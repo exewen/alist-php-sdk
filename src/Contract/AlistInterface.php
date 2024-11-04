@@ -18,9 +18,9 @@ interface AlistInterface
     public function getListDirs(string $path, string $password = '');
 
     # 操作
-    public function upload(string $filePath, string $alistFolder, string $type = HttpEnum::TYPE_MULTIPART);
+    public function upload(string $filePath, string $alistFolder, string $type = HttpEnum::TYPE_MULTIPART, int $timeout = 1200);
 
-    public function delete(string $alistFolder, array $removeFiles);
+    public function delete(string $alistFolder, array $removeFiles, int $timeout = 30);
 
     public function mkdir(string $path);
 

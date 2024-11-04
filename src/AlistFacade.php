@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Exewen\Alist;
 
+use Exewen\Alist\Constants\AlistEnum;
 use Exewen\Facades\Facade;
 use Exewen\Http\Constants\HttpEnum;
 use Exewen\Http\HttpProvider;
@@ -10,13 +11,13 @@ use Exewen\Logger\LoggerProvider;
 use Exewen\Alist\Contract\AlistInterface;
 
 /**
- * @method static void setAccessToken(string $accessToken) 设置token
+ * @method static void setAccessToken(string $accessToken, string $channel = AlistEnum::CHANNEL_API) 设置token
  * @method static string getToken(string $username, string $password) 获取token
  * @method static array getList(string $path, int $page = 1, int $limit = 20, bool $refresh = false, string $password = '') 列出目录和文件
  * @method static array getListDirs(string $path, string $password = '') 只列出目录
  * @method static array getListDetail(string $path, int $page = 1, int $limit = 20, bool $refresh = false, string $password = '') 获取某个目录和文件信息
- * @method static bool upload(string $filePath, string $alistFolder, string $type = HttpEnum::TYPE_MULTIPART) 上传文件/流式上传文件
- * @method static bool delete(string $alistFolder, array $removeFiles) 删除文件或文件夹
+ * @method static bool upload(string $filePath, string $alistFolder, string $type = HttpEnum::TYPE_MULTIPART, int $timeout = 1200) 上传文件/流式上传文件
+ * @method static bool delete(string $alistFolder, array $removeFiles, int $timeout = 30) 删除文件或文件夹
  * @method static bool mkdir(string $path) 新建文件夹
  * @method static bool rename(string $alistPath, string $name) 重命名
  * @method static bool batchRename(string $alistFolder, array $renameObjects) 批量重命名 "rename_objects":[{"src_name":"a","new_name":"b",}]

@@ -19,25 +19,25 @@ class OperationalTest extends Base
 
     public function testMkdir()
     {
-        AlistFacade::mkdir($this->testAlistPath . '/测试/上传');
-        AlistFacade::mkdir($this->testAlistPath . '/测试/移动');
-        AlistFacade::mkdir($this->testAlistPath . '/测试/删除');
-        $result = AlistFacade::mkdir($this->testAlistPath . '/测试/空');
+        AlistFacade::mkdir($this->testAlistPath . '/上传');
+        AlistFacade::mkdir($this->testAlistPath . '/移动');
+        AlistFacade::mkdir($this->testAlistPath . '/删除');
+        $result = AlistFacade::mkdir($this->testAlistPath . '/空');
         $this->assertTrue($result);
     }
 
     public function testUpload()
     {
-        AlistFacade::upload($this->testFile, $this->testAlistPath . '/测试/上传');
-        $result = AlistFacade::upload($this->testFile, $this->testAlistPath . '/测试/删除');
+        AlistFacade::upload($this->testFile, $this->testAlistPath . '/上传');
+        $result = AlistFacade::upload($this->testFile, $this->testAlistPath . '/删除');
         $this->assertTrue($result);
     }
 
 
     public function testDelete()
     {
-        $removeFile = ['安全图片.jpg'];
-        $result     = AlistFacade::delete($this->testAlistPath . '/测试/删除', $removeFile);
+        $removeFile = ['logo.jpeg'];
+        $result     = AlistFacade::delete($this->testAlistPath . '/删除', $removeFile);
         $this->assertTrue($result);
     }
 
@@ -47,9 +47,9 @@ class OperationalTest extends Base
      */
     public function testRename()
     {
-        $oldName = '安全图片.jpg';
-        $newName = '安全图片2.jpg';
-        $result  = AlistFacade::rename($this->testAlistPath . '/测试/上传/' . $oldName, $newName);
+        $oldName = 'logo.jpeg';
+        $newName = 'logo_rename.jpeg';
+        $result  = AlistFacade::rename($this->testAlistPath . '/上传/' . $oldName, $newName);
         sleep(1);
         $this->assertTrue($result);
     }
@@ -62,11 +62,11 @@ class OperationalTest extends Base
     {
         $renameObjects = [
             [
-                'src_name' => '安全图片2.jpg',
-                'new_name' => '安全图片3.jpg',
+                'src_name' => 'logo_rename.jpeg',
+                'new_name' => 'logo_batch_rename.jpeg',
             ]
         ];
-        $result        = AlistFacade::batchRename($this->testAlistPath . '/测试/上传/', $renameObjects);
+        $result        = AlistFacade::batchRename($this->testAlistPath . '/上传/', $renameObjects);
         sleep(1);
         $this->assertTrue($result);
     }
@@ -77,9 +77,9 @@ class OperationalTest extends Base
      */
     public function testMove()
     {
-        $oldFolder = $this->testAlistPath . '/测试/上传/';
-        $newFolder = $this->testAlistPath . '/测试/删除/';
-        $moveFiles = ['安全图片3.jpg'];
+        $oldFolder = $this->testAlistPath . '/上传/';
+        $newFolder = $this->testAlistPath . '/删除/';
+        $moveFiles = ['logo_batch_rename.jpeg'];
         $result    = AlistFacade::move($oldFolder, $newFolder, $moveFiles);
         sleep(1);
         $this->assertTrue($result);
@@ -92,8 +92,8 @@ class OperationalTest extends Base
      */
     public function testRecursiveMove()
     {
-        $oldFolder = $this->testAlistPath . '/测试/删除/';
-        $newFolder = $this->testAlistPath . '/测试/移动/';
+        $oldFolder = $this->testAlistPath . '/删除/';
+        $newFolder = $this->testAlistPath . '/移动/';
         $result    = AlistFacade::recursiveMove($oldFolder, $newFolder);
         sleep(1);
         $this->assertTrue($result);
@@ -101,12 +101,12 @@ class OperationalTest extends Base
 
     /**
      * 清理空文件夹
-     * 测完成 剩余  (移动->图片3)
+     * 测完成 剩余  (移动->logo_batch_rename.jpeg)
      * @return void
      */
     public function testRemoveEmptyDirectory()
     {
-        $result = AlistFacade::removeEmptyDirectory($this->testAlistPath . '/测试');
+        $result = AlistFacade::removeEmptyDirectory($this->testAlistPath);
         $this->assertTrue($result);
     }
 

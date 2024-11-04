@@ -15,7 +15,7 @@ return [
             'port'            => null,
             'prefix'          => null,
             'connect_timeout' => 3,
-            'timeout'         => 20,
+            'timeout'         => 10,
             'handler'         => [
                 LogMiddleware::class,
             ],
@@ -33,9 +33,27 @@ return [
             'port'            => null,
             'prefix'          => null,
             'connect_timeout' => 3,
-            'timeout'         => 20,
+            'timeout'         => 10,
             'handler'         => [
+                AuthMiddleware::class,
                 LogMiddleware::class,
+            ],
+            'extra'           => [],
+            'proxy'           => [
+                'switch' => false,
+                'http'   => '127.0.0.1:8888',
+                'https'  => '127.0.0.1:8888'
+            ]
+        ],
+        AlistEnum::CHANNEL_UPLOAD  => [
+            'verify'          => false,
+            'ssl'             => true,
+            'host'            => 'alist.test.com',
+            'port'            => null,
+            'prefix'          => null,
+            'connect_timeout' => 3,
+            'timeout'         => 10,
+            'handler'         => [
                 AuthMiddleware::class,
             ],
             'extra'           => [],

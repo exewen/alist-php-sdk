@@ -138,14 +138,15 @@ class Alist implements AlistInterface
      * @param string $filePath
      * @param string $alistFolder
      * @param string $type
-     * @return mixed
+     * @param int $timeout
+     * @return true
      */
-    public function upload(string $filePath, string $alistFolder, string $type = HttpEnum::TYPE_MULTIPART)
+    public function upload(string $filePath, string $alistFolder, string $type = HttpEnum::TYPE_MULTIPART, int $timeout = 1200)
     {
         if (!is_file($filePath)) {
             throw new AlistException("文件不存在：$filePath");
         }
-        $response = $this->operationalService->fileUpload($filePath, $alistFolder, $type);
+        $response = $this->operationalService->fileUpload($filePath, $alistFolder, $type, $timeout);
         $result   = json_decode($response, true);
         if (!isset($result['code']) || $result['code'] !== 200) {
             throw new AlistException(__FUNCTION__ . "异常：($response)");
@@ -157,15 +158,16 @@ class Alist implements AlistInterface
      * 删除文件或文件夹
      * @param string $alistFolder
      * @param array $removeFiles
-     * @return mixed
+     * @param int $timeout
+     * @return true
      */
-    public function delete(string $alistFolder, array $removeFiles)
+    public function delete(string $alistFolder, array $removeFiles, int $timeout = 30)
     {
         $params   = [
             'dir'   => $alistFolder,
             'names' => $removeFiles,
         ];
-        $response = $this->operationalService->delete($params);
+        $response = $this->operationalService->delete($params, [], $timeout);
         $result   = json_decode($response, true);
         if (!isset($result['code']) || $result['code'] !== 200) {
             throw new AlistException(__FUNCTION__ . "异常：($response)");

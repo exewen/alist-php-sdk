@@ -19,20 +19,21 @@ class ConfigRegister
             ],
 
             'alist' => [
-                'channel_auth' => AlistEnum::CHANNEL_AUTH,
-                'channel_api'  => AlistEnum::CHANNEL_API,
+                'channel_auth'   => AlistEnum::CHANNEL_AUTH,
+                'channel_api'    => AlistEnum::CHANNEL_API,
+                'channel_upload' => AlistEnum::CHANNEL_UPLOAD,
             ],
 
             'http' => [
                 'channels' => [
-                    AlistEnum::CHANNEL_AUTH => [
+                    AlistEnum::CHANNEL_AUTH   => [
                         'verify'          => false,
                         'ssl'             => true,
                         'host'            => 'alist.test.com',
                         'port'            => null,
                         'prefix'          => null,
                         'connect_timeout' => 3,
-                        'timeout'         => 20,
+                        'timeout'         => 10,
                         'handler'         => [
                             LogMiddleware::class,
                         ],
@@ -43,17 +44,35 @@ class ConfigRegister
                             'https'  => '127.0.0.1:8888'
                         ]
                     ],
-                    AlistEnum::CHANNEL_API  => [
+                    AlistEnum::CHANNEL_API    => [
                         'verify'          => false,
                         'ssl'             => true,
                         'host'            => 'alist.test.com',
                         'port'            => null,
                         'prefix'          => null,
                         'connect_timeout' => 3,
-                        'timeout'         => 20,
+                        'timeout'         => 10,
+                        'handler'         => [
+                            AuthMiddleware::class,
+                            LogMiddleware::class,
+                        ],
+                        'extra'           => [],
+                        'proxy'           => [
+                            'switch' => false,
+                            'http'   => '127.0.0.1:8888',
+                            'https'  => '127.0.0.1:8888'
+                        ]
+                    ],
+                    AlistEnum::CHANNEL_UPLOAD => [
+                        'verify'          => false,
+                        'ssl'             => true,
+                        'host'            => 'alist.test.com',
+                        'port'            => null,
+                        'prefix'          => null,
+                        'connect_timeout' => 3,
+                        'timeout'         => 10,
                         'handler'         => [
                             LogMiddleware::class,
-                            AuthMiddleware::class,
                         ],
                         'extra'           => [],
                         'proxy'           => [

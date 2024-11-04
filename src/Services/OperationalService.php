@@ -22,8 +22,9 @@ class OperationalService
 
     public function __construct(HttpClientInterface $httpClient, ConfigInterface $config)
     {
-        $this->httpClient = $httpClient;
-        $this->driver     = $config->get('alist.channel_api');
+        $this->httpClient   = $httpClient;
+        $this->driver       = $config->get('alist.channel_api');
+        $this->uploadDriver = $config->get('alist.channel_upload');
     }
 
 
@@ -32,27 +33,31 @@ class OperationalService
      * @param string $filePath
      * @param string $alistFolder
      * @param string $type
+     * @param int $timeout
      * @return string
      */
-    public function fileUpload(string $filePath, string $alistFolder, string $type = HttpEnum::TYPE_MULTIPART)
+    public function fileUpload(string $filePath, string $alistFolder, string $type = HttpEnum::TYPE_MULTIPART, int $timeout = 0)
     {
         $filename = basename($filePath);
         $fullPath = rtrim($alistFolder, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $filename;
         $header   = ['File-Path' => $fullPath];
-
         if ($type == HttpEnum::TYPE_MULTIPART) {
-            $params = [
+            $params  = [
                 [
                     'name'     => 'file',
                     'contents' => fopen($filePath, 'r')
                 ]
             ];
-            return $this->httpClient->put($this->driver, $this->fileUploadUrl, $params, $header, [], $type);
+            $options = [
+                'timeout' => $timeout
+            ];
+            return $this->httpClient->put($this->uploadDriver, $this->fileUploadUrl, $params, $header, $options, $type);
         } else {
             $options = [
+                'timeout'           => $timeout,
                 HttpEnum::TYPE_BODY => fopen($filePath, 'r')
             ];
-            return $this->httpClient->put($this->driver, $this->fileUploadUrl, [], $header, $options, $type);
+            return $this->httpClient->put($this->uploadDriver, $this->fileUploadUrl, [], $header, $options, $type);
         }
     }
 
@@ -60,11 +65,15 @@ class OperationalService
      * 删除文件或文件夹
      * @param array $params
      * @param array $header
+     * @param int $timeout
      * @return string
      */
-    public function delete(array $params, array $header = [])
+    public function delete(array $params, array $header = [], int $timeout = 0)
     {
-        return $this->httpClient->post($this->driver, $this->deleteUrl, $params, $header);
+        $options = [
+            'timeout' => $timeout
+        ];
+        return $this->httpClient->post($this->driver, $this->deleteUrl, $params, $header, $options);
     }
 
     /**
