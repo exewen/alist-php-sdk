@@ -11,6 +11,7 @@ class OperationalService
 {
     private $httpClient;
     private $driver;
+    private $uploadDriver;
     private $fileUploadUrl = '/api/fs/form';
     private $deleteUrl = '/api/fs/remove';
     private $mkdirUrl = '/api/fs/mkdir';
