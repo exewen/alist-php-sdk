@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Exewen\Alist\Middleware;
 
 use Exewen\Config\Contract\ConfigInterface;
-use Exewen\Di\Container;
+use Exewen\Facades\AppFacade;
 use Psr\Http\Message\RequestInterface;
 
 class AuthMiddleware
@@ -16,7 +16,7 @@ class AuthMiddleware
 
     public function __construct(string $channel, array $config)
     {
-        $this->appConfig = Container::getInstance()->get(ConfigInterface::class);
+        $this->appConfig = AppFacade::getContainer()->get(ConfigInterface::class);
         $this->channel   = $channel;
         $this->config    = $config;
     }
