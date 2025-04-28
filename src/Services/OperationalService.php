@@ -52,14 +52,16 @@ class OperationalService
             $options = [
                 'timeout' => $timeout
             ];
-            return $this->httpClient->put($this->uploadDriver, $this->fileUploadUrl, $params, $header, $options, $type);
+            $response = $this->httpClient->put($this->uploadDriver, $this->fileUploadUrl, $params, $header, $options, $type);
         } else {
             $options = [
                 'timeout'           => $timeout,
                 HttpEnum::TYPE_BODY => fopen($filePath, 'r')
             ];
-            return $this->httpClient->put($this->uploadDriver, $this->fileUploadUrl, [], $header, $options, $type);
+            $response = $this->httpClient->put($this->uploadDriver, $this->fileUploadUrl, [], $header, $options, $type);
         }
+        return $response->getBody()->getContents();
+
     }
 
     /**
@@ -74,7 +76,8 @@ class OperationalService
         $options = [
             'timeout' => $timeout
         ];
-        return $this->httpClient->post($this->driver, $this->deleteUrl, $params, $header, $options);
+        $response = $this->httpClient->post($this->driver, $this->deleteUrl, $params, $header, $options);
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -85,7 +88,8 @@ class OperationalService
      */
     public function mkdir(array $params, array $header = [])
     {
-        return $this->httpClient->post($this->driver, $this->mkdirUrl, $params, $header);
+        $response = $this->httpClient->post($this->driver, $this->mkdirUrl, $params, $header);
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -96,7 +100,8 @@ class OperationalService
      */
     public function rename(array $params, array $header = [])
     {
-        return $this->httpClient->post($this->driver, $this->renameUrl, $params, $header);
+        $response = $this->httpClient->post($this->driver, $this->renameUrl, $params, $header);
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -107,7 +112,8 @@ class OperationalService
      */
     public function batchRename(array $params, array $header = [])
     {
-        return $this->httpClient->post($this->driver, $this->batchRenameUrl, $params, $header);
+        $response = $this->httpClient->post($this->driver, $this->batchRenameUrl, $params, $header);
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -118,7 +124,8 @@ class OperationalService
      */
     public function move(array $params, array $header = [])
     {
-        return $this->httpClient->post($this->driver, $this->moveUrl, $params, $header);
+        $response = $this->httpClient->post($this->driver, $this->moveUrl, $params, $header);
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -129,7 +136,8 @@ class OperationalService
      */
     public function recursiveMove(array $params, array $header = [])
     {
-        return $this->httpClient->post($this->driver, $this->recursiveMoveUrl, $params, $header);
+        $response = $this->httpClient->post($this->driver, $this->recursiveMoveUrl, $params, $header);
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -140,7 +148,8 @@ class OperationalService
      */
     public function removeEmptyDirectory(array $params, array $header = [])
     {
-        return $this->httpClient->post($this->driver, $this->removeEmptyDirectoryUrl, $params, $header);
+        $response = $this->httpClient->post($this->driver, $this->removeEmptyDirectoryUrl, $params, $header);
+        return $response->getBody()->getContents();
     }
 
 }

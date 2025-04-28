@@ -26,7 +26,8 @@ class DownloadService
      */
     public function downloadFile(array $params, array $header = []): string
     {
-        return $this->httpClient->post($this->driver, $this->downloadUrl, $params, $header);
+        $response = $this->httpClient->post($this->driver, $this->downloadUrl, $params, $header);
+        return $response->getBody()->getContents();
     }
 
 

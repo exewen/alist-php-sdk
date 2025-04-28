@@ -31,7 +31,8 @@ class AuthService
             'username' => $username,
             'password' => $password
         ];
-        return $this->httpClient->post($this->driver, $this->tokenUrl, $params, $header);
+        $response = $this->httpClient->post($this->driver, $this->tokenUrl, $params, $header);
+        return $response->getBody()->getContents();
     }
 
 

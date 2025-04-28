@@ -28,7 +28,8 @@ class QueryService
      */
     public function getFs(array $params, array $header = []): string
     {
-        return $this->httpClient->post($this->driver, $this->fsListUrl, $params, $header);
+        $response =  $this->httpClient->post($this->driver, $this->fsListUrl, $params, $header);
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -39,7 +40,8 @@ class QueryService
      */
     public function getFsGet(array $params, array $header = []): string
     {
-        return $this->httpClient->post($this->driver, $this->fsGetUrl, $params, $header);
+        $response =  $this->httpClient->post($this->driver, $this->fsGetUrl, $params, $header);
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -50,7 +52,8 @@ class QueryService
      */
     public function getFsDirs(array $params, array $header = []): string
     {
-        return $this->httpClient->post($this->driver, $this->fsDirsListUrl, $params, $header);
+        $response =  $this->httpClient->post($this->driver, $this->fsDirsListUrl, $params, $header);
+        return $response->getBody()->getContents();
     }
 
 
